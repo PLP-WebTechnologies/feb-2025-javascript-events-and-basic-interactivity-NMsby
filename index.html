@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events and Interactivity</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #6c5ce7;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            color: #6c5ce7;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 5px rgba(108, 92, 231, 0.2);
+        }
+        
+        button {
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #5a4ecc;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .toggle-content {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .counter-display {
+            font-size: 3rem;
+            text-align: center;
+            margin: 20px 0;
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+        
+        .counter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .color-boxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .color-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .color-box:hover {
+            transform: scale(1.05);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Events & Interactivity</h1>
+            <p>Exploring event-driven programming and user interaction</p>
+        </header>
+        
+        <!-- Form Validation Section -->
+        <section id="form-section">
+            <h2>Form Validation</h2>
+            <p>Fill out the form below. All fields are required and will be validated before submission.</p>
+            
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" placeholder="Enter your full name">
+                    <div class="error" id="name-error">Please enter your full name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" placeholder="Enter your email address">
+                    <div class="error" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number">
+                    <div class="error" id="phone-error">Please enter a valid phone number</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" rows="4" placeholder="Enter your message"></textarea>
+                    <div class="error" id="message-error">Please enter a message</div>
+                </div>
+                
+                <button type="submit">Submit Form</button>
+            </form>
+            
+            <div class="success" id="form-success">
+                Form submitted successfully! Thank you for your submission.
+            </div>
+        </section>
+        
+        <!-- Toggle Visibility Section -->
+        <section id="toggle-section">
+            <h2>Toggle Visibility</h2>
+            <p>Click the button below to toggle the visibility of content.</p>
+            
+            <button id="toggle-btn">Show Content</button>
+            
+            <div class="toggle-content" id="toggle-content">
+                <h3>Hidden Content Revealed!</h3>
+                <p>This content was initially hidden and is now visible because you clicked the button above.</p>
+                <p>Toggle buttons are commonly used in UI design for expanding/collapsing sections, showing/hiding menus, and displaying additional information.</p>
+            </div>
+        </section>
+        
+        <!-- Interactive Counter Section -->
+        <section id="counter-section">
+            <h2>Interactive Counter</h2>
+            <p>Use the buttons below to increase, decrease, or reset the counter.</p>
+            
+            <div class="counter-display" id="counter-display">0</div>
+            
+            <div class="counter-controls">
+                <button id="decrement-btn">Decrease</button>
+                <button id="reset-btn">Reset</button>
+                <button id="increment-btn">Increase</button>
+            </div>
+        </section>
+        
+        <!-- Color Click Game Section -->
+        <section id="color-section">
+            <h2>Color Click Game</h2>
+            <p>Click on the colored boxes below. Each box will change color when clicked.</p>
+            
+            <div class="color-boxes" id="color-boxes">
+                <div class="color-box" style="background-color: #e74c3c;">Box 1</div>
+                <div class="color-box" style="background-color: #3498db;">Box 2</div>
+                <div class="color-box" style="background-color: #2ecc71;">Box 3</div>
+                <div class="color-box" style="background-color: #f39c12;">Box 4</div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2025 | JavaScript Events and Interactivity Example</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
